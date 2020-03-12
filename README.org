@@ -1,0 +1,208 @@
+* Keyboardio Model 01 Firmware
+  :PROPERTIES:
+  :CUSTOM_ID: keyboardio-model-01-firmware
+  :END:
+
+/The default firmware for the Keyboardio Model 01/
+
+#+BEGIN_HTML
+  <h3>
+#+END_HTML
+
+This is a quick start guide for folks who are familiar with Arduino and
+prefer to use the command line. For everyone else:
+
+-  [[https://github.com/keyboardio/Kaleidoscope/wiki/Keyboardio-Model-01-Introduction][Check
+   out the wiki]] for a more in depth introduction to how the Model 01
+   keyboard and the Kaleidoscope firmware work.
+
+-  If you have questions, [[https://community.keyboard.io/][The
+   community forums are happy to help!]]
+
+   #+BEGIN_HTML
+     </h3>
+   #+END_HTML
+
+* Download and install
+  :PROPERTIES:
+  :CUSTOM_ID: download-and-install
+  :END:
+
+** Set up the Arduino IDE
+   :PROPERTIES:
+   :CUSTOM_ID: set-up-the-arduino-ide
+   :END:
+
+Setup the Arduino IDE on your system. Make sure you install at least
+version 1.6.10, since older version may not support all required
+features.
+
+*** macOS
+    :PROPERTIES:
+    :CUSTOM_ID: macos
+    :END:
+
+On macOS, install the Arduino IDE using [[http://brew.sh/][homebrew]]
+[[https://caskroom.github.io/][cask]] with =brew cask install arduino=
+or download the application from
+[[https://www.arduino.cc/en/Main/Software][the official website]] and
+move it to your =/Applications= folder.
+
+*** Linux
+    :PROPERTIES:
+    :CUSTOM_ID: linux
+    :END:
+
+On Linux, your distribution's package manager probably includes the
+Arduino IDE, but it may be an out of date version. If your distribution
+installs a version of Arduino before 1.6.10, you'll need to install the
+Arduino IDE following the instructions
+[[https://github.com/keyboardio/Kaleidoscope/wiki/Install-Arduino-support-on-Linux][on
+the wiki]].
+
+If you install Arduino into some place that's /not/
+=/usr/local/arduino=, you'll need to set the =$ARDUINO_PATH= environment
+variable to the directory containing the =arduino= and =arduino-builder=
+binaries.
+
+** Create and navigate to the Arduino Sketchbook directory
+   :PROPERTIES:
+   :CUSTOM_ID: create-and-navigate-to-the-arduino-sketchbook-directory
+   :END:
+
+*** MacOS
+    :PROPERTIES:
+    :CUSTOM_ID: macos-1
+    :END:
+
+#+BEGIN_SRC sh
+    mkdir -p $HOME/Documents/Arduino
+    cd $HOME/Documents/Arduino 
+#+END_SRC
+
+*** Linux
+    :PROPERTIES:
+    :CUSTOM_ID: linux-1
+    :END:
+
+#+BEGIN_SRC sh
+    mkdir -p $HOME/Arduino
+    cd $HOME/Arduino 
+#+END_SRC
+
+** Download hardware platform, including library source code
+   :PROPERTIES:
+   :CUSTOM_ID: download-hardware-platform-including-library-source-code
+   :END:
+
+#+BEGIN_SRC sh
+    mkdir -p hardware
+
+    ## then clone the hardware definitions to make them available to the arduino environment
+    git clone --recursive https://github.com/keyboardio/Kaleidoscope-Bundle-Keyboardio.git hardware/keyboardio
+#+END_SRC
+
+** Download the Model 01 Firmware
+   :PROPERTIES:
+   :CUSTOM_ID: download-the-model-01-firmware
+   :END:
+
+#+BEGIN_SRC sh
+    git clone https://github.com/keyboardio/Model01-Firmware.git
+#+END_SRC
+
+* Build and flash the firmware
+  :PROPERTIES:
+  :CUSTOM_ID: build-and-flash-the-firmware
+  :END:
+
+Before you begin, make sure your Model 01 is connected to your computer.
+
+*** Option 1: From the command line
+    :PROPERTIES:
+    :CUSTOM_ID: option-1-from-the-command-line
+    :END:
+
+#+BEGIN_SRC sh
+    cd Model01-Firmware
+    make flash
+#+END_SRC
+
+When the builder tells you to hit Enter to continue, hold down "Prog" in
+the top left corner of your keyboard and hit Enter.
+
+*** Option 2: From the Arduino IDE
+    :PROPERTIES:
+    :CUSTOM_ID: option-2-from-the-arduino-ide
+    :END:
+
+Open the sketch you wish to flash (for example, =Model01-Firmware.ino=).
+
+Click the Upload button or press =Ctrl-U=.
+
+Hold down the "Prog" key in the top left corner of your keyboard, until
+the compile finishes and the upload begins.
+
+* Start to customize the firmware
+  :PROPERTIES:
+  :CUSTOM_ID: start-to-customize-the-firmware
+  :END:
+
+You can customize your keyboard's key layout and LED effects by
+modifying the =Model01-Firmware.ino= file in the same directory as this
+README. Model01-Firmware.ino is a computer program written in 'Arduino
+C'. You can find documentation about Arduino C at https://arduino.cc.
+
+* Updating the firmware and libraries
+  :PROPERTIES:
+  :CUSTOM_ID: updating-the-firmware-and-libraries
+  :END:
+
+From time to time, you may want to pull the latest version of this
+firmware from GitHub. To do that, navigate to the Model01-Firmware
+directory in your shell and pull the latest code.
+
+#+BEGIN_SRC sh
+    cd Model01-Firmware
+    git pull
+#+END_SRC
+
+After that, you'll want to update the Kaleidoscope libraries.
+
+*** MacOS
+    :PROPERTIES:
+    :CUSTOM_ID: macos-2
+    :END:
+
+#+BEGIN_SRC sh
+    cd $HOME/Documents/Arduino/hardware/keyboardio
+    make update-submodules
+#+END_SRC
+
+*** Linux
+    :PROPERTIES:
+    :CUSTOM_ID: linux-2
+    :END:
+
+#+BEGIN_SRC sh
+    cd $HOME/Arduino/hardware/keyboardio
+    make update-submodules
+#+END_SRC
+
+* Getting help
+  :PROPERTIES:
+  :CUSTOM_ID: getting-help
+  :END:
+
+As you start to explore customization of your keyboard's firmware, the
+community at https://community.keyboard.io can often be a valuable
+resource.
+
+* Thanks!
+  :PROPERTIES:
+  :CUSTOM_ID: thanks
+  :END:
+
+<3 jesse
+
+[[https://travis-ci.org/keyboardio/Model01-Firmware][[[https://travis-ci.org/keyboardio/Model01-Firmware.svg?branch=master]]]]
